@@ -173,9 +173,11 @@ class Cube:
 
         return result
 
-    def scramble(self, sides: str = "UDLRFB") -> list[str]:
+    def scramble(self, n: int = None, sides: str = "UDLRFB") -> list[str]:
         sequence, legal_moves, last, length = [], [], -1, len(sides)
-        n = randint(4 * length, 5 * length)
+        
+        if n is None:
+            n = randint(4 * length, 5 * length)
 
         if "U" in sides:
             legal_moves.append(MOVES[0])
@@ -297,12 +299,14 @@ class Cube:
                     bound = t
 
         def bfs():
+            from collections import deque
+
             cube = self.copy()
             prev: dict[Cube, tuple[Cube, str]] = {cube: (None, "")}
-            queue = [cube]
+            queue = deque([cube])
 
             while queue:
-                c = queue.pop(0)
+                c = queue.popleft()
                 next_moves: list[str] = []
 
                 if "U" in legal_moves and "U" not in prev[c][1] and (
