@@ -1,1 +1,1 @@
-# Rubik-s-Cibe
+# Rubik-s-Cube
